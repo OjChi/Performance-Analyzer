@@ -141,11 +141,17 @@ def cryptoView(request):
         symbol = request.POST.get('symbol')
         symbol = symbol.upper()
     else:
-        symbol = 'BTCUSD'
+        symbol = 'HDFCBANK.BSE'
+        # symbol = 'BTCUSD'
 
     data = spotquote(symbol)
     pricedata = pricechange(symbol)
     moredata = pricechange(symbol)
+
+    # print(f'''
+    # moredata: {moredata},
+    # pricedata: {pricedata}
+    # ''')
 
     actual_df = pd.read_csv(f'C:/Users/ojasa/Documents/BE/Major Project/Proj/majorProj/combined_0imputed_HDFC_Bank_withDate.csv')
     ts_df = actual_df
@@ -174,17 +180,24 @@ def cryptoView(request):
     # buyers = pricedata['askQty']
     # sellers = pricedata['bidQty']
 
-    # eth = pricechange(symbol='ETHUSD')
-    # btc = pricechange(symbol="BTCUSD")
-    # ltc = pricechange(symbol="LTCUSD")
+    # print(f'''
+    # pricedata : {pricedata}
+    # buyers: {buyers}
+    # sellers: {sellers}
+    # ''')
 
+    fav1 = spotquote(symbol='HDFCBANK.BSE')
+    fav2 = spotquote(symbol="AXISBANK.BSE")
+    fav3 = spotquote(symbol="ICICIBANK.BSE")
 
+    print(f'''
+    fav1: {fav1}''')
 
     context={
-    # 'moredata': moredata,
-    # 'eth': eth,
-    # 'btc': btc,
-    # 'ltc': ltc,
+    'moredata': moredata,
+    'fav1': fav1,
+    'fav2': fav2,
+    'fav3': fav3,
     # 'percentchange': percentchange,
     # 'buyers': buyers,
     # 'sellers': sellers,

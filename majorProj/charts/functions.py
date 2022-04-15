@@ -15,26 +15,30 @@ from bs4 import BeautifulSoup
 def spotquote(symbol):
     import requests
     import json
-    symbol=symbol
-    payload = {
-      'symbol': symbol,
-    }
-    url = 'https://api.binance.us/api/v3/ticker/price'
+    # symbol='BTCUSD'
+    # payload = {
+    #   'symbol': symbol,
+    # }
+    # url = 'https://api.binance.us/api/v3/ticker/price'
+    # r = requests.get(url, params = payload)
+    # data = r.json()
+    # print(f'''data:{data}''')
     
-    r = requests.get(url, params = payload)
-    print(f'r - {r}')
-    data = r.json()
-    print(data)
-    url1 = 'https://www.bseindia.com/stock-share-price/hdfc-bank-ltd/hdfcbank/500180/'
+    url1 = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='+symbol+'&apikey=2LDC13KUVCTN5W49'
     r1 = requests.get(url1)
-    # print(r1)
+    data1 = r1.json()
 
-    # soup = BeautifulSoup(r1.content, 'html.parser')
+    # print(list(data1.items())[0][1])
 
-    # print(soup.prettify())
-    # data1 = r1.json()
-    # print(type(data1))
-    return data
+    # print(data)
+    # {'symbol': 'BTCUSD', 'price': '40191.1000'}
+
+    data_dict = {}
+    data_dict['symbol'] = symbol
+    data_dict['price'] = list(data1.items())[0][1]['05. price']
+    data_dict['percentchange'] = list(data1.items())[0][1]['10. change percent']
+
+    return data_dict
 
 
 
@@ -53,7 +57,7 @@ def candles(symbol):
   url= 'https://api.binance.us/api/v3/klines'
   r = requests.get(url, params = payload)
   r = r.json()
-  print(len(r))
+  # print(len(r))
 
   index = []
   open = []
@@ -97,8 +101,21 @@ def pricechange(symbol):
     payload = {
         'symbol': symbol,
     }
-    url= 'https://api.binance.us/api/v3/ticker/24hr'
-    r = requests.get(url, params = payload)
-    r = r.json()
-    pricechange = r
-    return pricechange
+    # url= 'https://api.binance.us/api/v3/ticker/24hr'
+    # r = requests.get(url, params = payload)
+    # r = r.json()
+    # pricechange = r
+
+    url1 = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=RELIANCE.BSE&outputsize=full&apikey=demo'
+    r1 = requests.get(url1)
+    data1 = r1.json()
+
+    # print(list(data1['Time Series (Daily)'].items())[0][1])
+    #{'1. open': '2577.0000', '2. high': '2592.8999', '3. low': '2546.0000', '4. close': '2552.4500', '5. volume': '156923'}
+    data_dict = {}
+    data_dict['highPrice'] = list(data1['Time Series (Daily)'].items())[0][1]['2. high']
+    data_dict['lowPrice'] = list(data1['Time Series (Daily)'].items())[0][1]['3. low']
+    data_dict['volume'] = list(data1['Time Series (Daily)'].items())[0][1]['5. volume']
+
+    # print(data_dict)
+    return data_dict
