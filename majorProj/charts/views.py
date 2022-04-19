@@ -955,14 +955,15 @@ def technical_analysis(company):
     fig = go.Figure(
       go.Indicator(
         domain = {'x': [0, 1], 'y': [0, 1]},
-        # value = latest_rsi,
-        # number = {'suffix': "<br>"+advice+"<br>", "prefix": "Rs."},
-        # mode = "gauge+number",
-        mode = "gauge",
-        title = {'text': f"<span style=font-size:22px>RSI<br><b>{advice}</b></span>"},
+        value = latest_rsi,
+        number = {'suffix': "<br>"+advice+"<br>", "prefix": ""},
+        mode = "gauge+number",
+        # mode = "gauge",
+        # title = {'text': f"<span style=font-size:22px>RSI<br><b>{advice}</b></span>"},
+        title = {'text': f"<span style=font-size:22px>RSI</span>"},
         # delta = {'reference': 380},        
         gauge = {'axis': {'range': [None, 180], "visible": False},
-                  'borderwidth': 20,
+                  'borderwidth': 15,
                   'bordercolor': "white",  
                   'steps' : [
                       {'range': [0, 60], 'color': "red", 'name':"buy"},
@@ -1027,13 +1028,18 @@ def technical_analysis(company):
     fig = go.Figure(
       go.Indicator(
         domain = {'x': [0, 1], 'y': [0, 1]},
-        value = crossover_macd,
-        number = {'prefix': f"MACD: Rs.{crossover_macd:.2f} | Signal: Rs.", "suffix": f'<br>{macd_advice}'},
+        value = crossover_macdsignal,
+        number = {'prefix': f"MACD: {crossover_macd:.2f}<br>Signal: ", 
+          "suffix": f'<br>{macd_advice}',
+          # "font":{
+          #   "size": 16
+          # }
+        },
         mode = "gauge+number+delta",
         title = {'text': "MACD"},
         # delta = {'reference': crossover_macd, 'position': 'top'},        
         gauge = {'axis': {'range': [None, 180], "visible": False},
-                  'borderwidth': 20,
+                  'borderwidth': 15,
                   'bordercolor': "white",  
                   'steps' : [
                       {'range': [0, 60], 'color': "red", 'name':"buy"},
