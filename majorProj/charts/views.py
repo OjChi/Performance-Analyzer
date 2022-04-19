@@ -123,15 +123,15 @@ def homeView(request):
     
 
 
-def homeView(request):
-    if request.method == 'POST':
-        symbol = request.POST.get('symbol')
-        return redirect('crypto/')
+# def homeView(request):
+#     if request.method == 'POST':
+#         symbol = request.POST.get('symbol')
+#         return redirect('crypto/')
 
-    context={
+#     context={
 
-    }
-    return render(request, 'dashboard/index.html', context)
+#     }
+#     return render(request, 'dashboard/index.html', context)
 
 
 
@@ -153,7 +153,7 @@ def cryptoView(request):
     # pricedata: {pricedata}
     # ''')
 
-    actual_df = pd.read_csv(f'C:/Users/ojasa/Documents/BE/Major Project/Proj/majorProj/combined_0imputed_HDFC_Bank_withDate.csv')
+    actual_df = pd.read_csv(f'D:/College/MajorProject/Django project/Performance-Analyzer/majorProj/combined_0imputed_HDFC_Bank_withDate.csv')
     ts_df = actual_df
 
     #get a fricken df
@@ -205,3 +205,34 @@ def cryptoView(request):
     'candlestick': candlestick(),
     }
     return render(request, 'dashboard/crypto.html', context)
+
+
+
+
+
+
+
+def homeView(request):
+  if request.method == 'POST':
+      symbol = request.POST.get('symbol')
+      return redirect('crypto/')
+
+  context={}
+  return render(request, 'dashboard/home_page.html', context)
+
+def aboutView(request):
+  if request.method == 'POST':
+      symbol = request.POST.get('symbol')
+      return redirect('crypto/')
+
+  context={}
+  return render(request, 'dashboard/about_us.html', context)
+
+
+def contactView(request):
+  if request.method == 'POST':
+      symbol = request.POST.get('symbol')
+      return redirect('crypto/')
+
+  context={}
+  return render(request, 'dashboard/contact_us.html', context)
