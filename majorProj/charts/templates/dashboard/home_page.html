@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home Page</title>
+    {% block title %}<title>Home Page</title> {% endblock %}
 
     <link rel="stylesheet" type = "text/css" href="{% static 'style.css' %}">
     <!-- Google Font API-->
@@ -36,10 +36,10 @@
 </head>
 
 <body>
+    <!-- Navbar -->
+    {% include 'dashboard/navbar.html'%}
+    {% block content %}
     <header>
-      <!-- Navbar -->
-        {% include 'dashboard/navbar.html'%}
-        
         <a name="home"></a>
         <div class="container-fluid">
             <div class="more-space row">
@@ -55,26 +55,11 @@
                     <button class="btn btn-lg dropdown-toggle bg-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                       Select company here
                     </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form method="POST" action="{% url '' %}">
-                                <button type="submit" class="btn" name="axis_bank" >
-                                   Axis Bank
-                                </button>
-                            </form>
-                        </li>
-                        <li>
-                            <form method="POST" action="{% url '' %}">
-                                <button type="submit" class="btn" name="hdfc_bank" >
-                                   HDFC Bank
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                    <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: 2%; font-size:16px;">
+                    
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: 2%; font-size:16px;">
                       <a class="dropdown-item" href="#">Axis Bank</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">HDFC Bank</a>
+                      <a class="dropdown-item" href="/hdfc_bank">HDFC Bank</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">ICICI Bank</a>
                       <div class="dropdown-divider"></div>
@@ -101,7 +86,7 @@
                       <a class="dropdown-item" href="#">Hindustan Unilever</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Bharti Airtel</a>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             </div>
@@ -198,7 +183,7 @@
       </h3>
     </div>
   
-
+    {% endblock %}
   <!-- Footer -->
   {% include 'dashboard/footer.html'%}
 

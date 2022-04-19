@@ -11,6 +11,7 @@ import time
 from pandas import Timestamp
 import requests
 from bs4 import BeautifulSoup
+import os
 
 def spotquote(symbol):
     import requests

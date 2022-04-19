@@ -1,0 +1,15 @@
+{%load plotly_dash %}
+<div class="container-fluid" style="width:800px" >
+    <!-- change above class to container if its taking size of the parent/ other issues -->
+    <h1>Technical Analysis Summary</h1>
+    <div class="row">
+        {% for plot in gauges %}
+        <div class="col-sm-6">
+            <div style="float:left; width:50%">
+                {{ plot.chart_div | safe }}
+            </div>
+            
+        </div>
+    {% endfor %}
+    </div>
+</div>

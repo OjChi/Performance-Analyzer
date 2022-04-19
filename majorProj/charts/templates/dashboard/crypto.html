@@ -1,21 +1,41 @@
-{% extends 'dashboard/index.html' %}
+{% extends "dashboard/home_page.html" %}
 {% load static %}
 
-{% block title %}{{data.symbol}} {{data.price}}{% endblock %}
-
-
+{% block title %}<title>Performance Analyzer - {{data.symbol}}</title>{% endblock %}
 
 
 {% block content %}
 
-{% include 'dashboard/topcrypto.html'%}
 
 
-<div class="container-fluid">
-  <div class="row mt-5 mb-5 justify-content-center">
+<div class="container-fluid text-center" style="padding-top: 5%;">
+  <p id="date-time"></p>
+  <h1>{{data.symbol}}</h1>
+  <p>{% if data %} Current: <b>{{data.price}}</b>  |{% endif %} High: <b>{{moredata.highPrice}}</b> | Low: <b>{{moredata.lowPrice}}</b>  | Volume: <b>{{moredata.volume}}</b> | 24 Hour Change: <b>{{data.percentchange}}</b> </p>
 
-    <div class="col-sm-3 col-md-3 col-xs-12 py-5">
-      <div class="card">
+
+    <!-- <div class="card">
+      <div class="card-header"> {{data.symbol}}</div>
+      <div class="card-body">
+
+        <ul class="list-group list-group-horizontal">
+          <li class="list-group-item">Quick Info</li>
+          {% if data %}
+          <li class="list-group-item ">Current: {{data.price}}  | High: {{moredata.highPrice}} | Low: {{moredata.lowPrice}}  | Volume: {{moredata.volume}} | 24 Hour Change: {{data.percentchange}} </li>
+          {% endif %}
+          <li class="list-group-item ">High: {{moredata.highPrice}} </li>
+          <li class="list-group-item ">Low: {{moredata.lowPrice}}</li>
+          <li class="list-group-item ">Volume: {{moredata.volume}} </li>
+          <li class="list-group-item ">24 Hour Change: {{data.percentchange}} </li>
+        </ul>
+
+      </div>
+    </div> -->
+
+  <!-- <div class="row mt-5 mb-5 justify-content-center"> -->
+
+    <!-- <div class="col-sm-3 col-md-3 col-xs-12 py-5"> -->
+      <!-- <div class="card">
       <div class="card-header"> Crypto Spot Quote</div>
       <div class="card-body">
       <form method="POST" action="">{% csrf_token %}
@@ -49,23 +69,46 @@
       </ul>
 
       </div>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
 
-    <div class="col-sm-9 col-md-9 col-xs-12 py-5">
-      <div class="card text-center">
-        <div class="alert alert-success" role="alert">
-          <span>{{data.symbol}}</span>
+  <div class="container-fluid">
+    <div>
+      <!-- <div class="alert alert-success" role="alert">
+        <span>{{data.symbol}}</span>
+      </div> -->
+
+        <div>  {{candlestick0 | safe}} </div>
+        <div>  {{candlestick1 | safe}} </div>
+        <div>  {{candlestick2 | safe}} </div>
+        <h3 class="row-sm-9"style="align-self:flex-start; margin: 50px;">Technical Analysis Summary</h3>
+        <div class="row">
+            {% for plot in gauges %}
+            <div class="col-sm-6">
+                <!-- <div style="float:left; width:50%"> -->
+                    {{ plot.chart_div | safe }}
+                <!-- </div> -->
+                
+            </div>
+        {% endfor %}
         </div>
+        <br>
+        <br>
+    </div>
+  </div>      
 
-          <div>  {{candlestick | safe}} </div>
-          <br>
-          <br>
-      </div>
-    </div>      
+  
+  {% include "dashboard/topcrypto.html" %}
 
+  <form style="text-align: center;  margin-left: 45%; padding-bottom: 3%; padding-top: 3%;" >
+    <input type="button" value="Print Report" onClick="javascript:window.print()" class="noPrint submit-btn" style="width: 200px; padding: 2%;">
+  </form>
 
-  </div>
 </div>
 
+
+<script>
+  var dt = new Date();
+  document.getElementById('date-time').innerHTML=dt;
+  </script>
 {%endblock%}
