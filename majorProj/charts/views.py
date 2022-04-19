@@ -151,7 +151,7 @@ def homeView(request):
 
 
 
-def cryptoView(request):
+def cryptoView(request, company_tech):
 
     if request.method == 'POST':
         symbol = request.POST.get('symbol')
@@ -773,7 +773,7 @@ def cryptoView(request):
           fig.update_yaxes(title_text="Price", row=1, col=1)
           fig.update_yaxes(title_text="Volume", row=2, col=1)
           fig.update_layout(
-              title="ONGC Candlestick Chart with Bollinger Band",
+              title="HDFC Candlestick Chart with Bollinger Band",
               legend_title="Legend",
               font=dict(
                   family="Arial",
@@ -920,7 +920,9 @@ def cryptoView(request):
 
     candlestick_div = candlestick()
 
-    context={
+    technical_analysis_context = technical_analysis(company_tech)
+    
+    charts_context={
     'moredata': moredata,
     'fav1': fav1,
     'fav2': fav2,
@@ -933,10 +935,12 @@ def cryptoView(request):
     'candlestick1': candlestick_div[1],
     'candlestick2': candlestick_div[2],
     }
+
+    context = dict(charts_context, **technical_analysis_context)
     return render(request, 'dashboard/crypto.html', context)
 
-def technical_analysis(request, company):
-
+# def technical_analysis(request, company):
+def technical_analysis(company):
   file_path = f"indicators_{company}.csv"
   indicators_csv = pd.read_csv(file_path)
 
@@ -1067,5 +1071,5 @@ def technical_analysis(request, company):
     ]
   }
   
-
-  return render(request, 'dashboard/technicalanalysis.html', context)
+  return context
+  # return render(request, 'dashboard/technicalanalysis.html', context)
