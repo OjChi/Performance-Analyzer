@@ -170,18 +170,20 @@ def cryptoView(request, company_tech):
 
     dirname = os.path.dirname(__file__)
     dirname = dirname[:-7]
-    filename = os.path.join(dirname, 'combined_imputed_HDFC_Bank_withDate.csv')
+    filename = os.path.join(dirname, 'combined_imputed_HDFC_withDate.csv')
     filename_replaced = filename.replace("\\", "/")
     # print(f'{filename_replaced}')
 
     ts_df = pd.read_csv(f'{filename_replaced}')
     company = "HDFC Bank"
     # C:\Users\ojasa\Documents\BE\Major Project\Proj\majorProj\combined_imputed_HDFC_Bank_withDate.csv
-    actual_df = pd.read_csv((os.path.join(dirname, 'combined_imputed_HDFC_Bank_withDate.csv')).replace("\\","/"))
+    actual_df = pd.read_csv((os.path.join(dirname, 'combined_imputed_HDFC_withDate.csv')).replace("\\","/"))
     actual_df['Date']= pd.to_datetime(actual_df['Date'])
     actual_df = actual_df.iloc[900:, :]
     
     pred_df = pd.read_csv(os.path.join(dirname, f'{company}.csv').replace("\\","/"))
+
+    # print(actual_df)
 
     # print(actual_df)
     # print(pred_df)
@@ -495,7 +497,7 @@ def cryptoView(request, company_tech):
           # create columns for each pattern
 
           candle_names = talib.get_function_groups()['Pattern Recognition']
-          print(len(candle_names))
+          # print(len(candle_names))
           remove = [
                     'CounterAttack', 
                     'Longline', 
@@ -676,13 +678,14 @@ def cryptoView(request, company_tech):
           # Formatting the Title column
           title_list = []
           # print(actual_df.columns)
-          # for title in actual_df['Title']:
-          #   # print(repr(title))
-          #   # print(title[1:-1].replace("\n ","<br>"))
-          #   # print(title[1:-1].replace("\n ","<br>").count("\""),title[1:-1].replace("\n ","<br>").count("'"))
-          #   # print()
-          #   title_list.append(title[1:-1].replace("\n ","<br>"))
+          for title in actual_df['Title']:
+            # print(repr(title))
+            # print(title[1:-1].replace("\n ","<br>"))
+            # print(title[1:-1].replace("\n ","<br>").count("\""),title[1:-1].replace("\n ","<br>").count("'"))
+            # print()
+            title_list.append(title[1:-1].replace("\n ","<br>"))
 
+          print(len(title_list))
 
           trace = go.Candlestick(
                       x = actual_df['Date'],
@@ -691,8 +694,7 @@ def cryptoView(request, company_tech):
                       low=l,
                       close=c,
                       name='candles',
-                      # text="Pattern: "
-                      # +actual_df['candlestick_pattern']+"<br>Recent News:<br>"+title_list
+                      text="Pattern: "+actual_df['candlestick_pattern']+"<br>Recent News:<br>"+title_list
                     )
           data = [trace]
           fig = go.Figure(data)
@@ -730,8 +732,10 @@ def cryptoView(request, company_tech):
                       low=l,
                       close=c,
                       name='candles',
-                      # text="Pattern: "+actual_df['candlestick_pattern']+"<br>Recent News:<br>"+title_list
+                      text="Pattern: "+actual_df['candlestick_pattern']
+                      # +"<br>Recent News:<br>"+title_list
                     )
+          # print("Pattern: "+actual_df['candlestick_pattern'])
           data = [trace]
           # fig = go.Figure(data)
           fig.add_trace(go.Scatter(y=middleband,
@@ -808,13 +812,14 @@ def cryptoView(request, company_tech):
 
           # Formatting the Title column
           title_list = []
-          # for title in actual_df['Title']:
-          #   # print(repr(title))
-          #   # print(title[1:-1].replace("\n ","<br>"))
-          #   # print(title[1:-1].replace("\n ","<br>").count("\""),title[1:-1].replace("\n ","<br>").count("'"))
-          #   # print()
-          #   title_list.append(title[1:-1].replace("\n ","<br>"))
+          for title in actual_df['Title']:
+            # print(repr(title))
+            # print(title[1:-1].replace("\n ","<br>"))
+            # print(title[1:-1].replace("\n ","<br>").count("\""),title[1:-1].replace("\n ","<br>").count("'"))
+            # print()
+            title_list.append(title[1:-1].replace("\n ","<br>"))
 
+          print(len(title_list))
 
           trace = go.Candlestick(
                       x = actual_df['Date'],
@@ -823,7 +828,7 @@ def cryptoView(request, company_tech):
                       low=l,
                       close=c,
                       name='candles',
-                      # text="Pattern: "+actual_df['candlestick_pattern']+"<br>Recent News:<br>"+title_list
+                      text="Pattern: "+actual_df['candlestick_pattern']+"<br>Recent News:<br>"+title_list
                     )
           data = [trace]
           fig1 = go.Figure(data)
