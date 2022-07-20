@@ -1,3 +1,3 @@
 # Performance-Analyzer
 
-https://github.com/sevenisalie/django_alpha_vantage - referred for charts
+Blue chip companies attract investors because they are reputed and stable. News articles can harm or improve the reputation of such companies and this reputation dictates investor sentiment towards them. Using the relationship between news articles and investor sentiment and the relationship between investor sentiment and stock price, we propose a framework that analyses blue chip company performance. Sentiment Analysis is performed to obtain investor sentiment based on latest news articles about companies and sectors. Price predictions are made based on important performance measures and the sentiment score. The output is precise and easy to understand analysis reports and visualizations about performance of blue chip companies.
